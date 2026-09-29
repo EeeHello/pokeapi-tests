@@ -46,3 +46,13 @@ def test_pikachu_has_mega_punch():
     all_moves = [m["move"]["name"] for m in data ["moves"]]
 
     assert "mega-punch" in all_moves
+
+def test_get_pokemon_stats():
+    response = requests.get(f"{BASE_URL}/pokemon/pikachu")
+    assert response.status_code == 200
+
+    data = response.json()
+
+    stats_dict = {s["stat"]["name"]: s["base_stat"] for s in data ["stats"]}
+
+    assert stats_dict["hp"] == 35
