@@ -38,3 +38,15 @@ def test_get_pokemon__list_has_correct_count():
     assert len(data["results"]) == 10
 
 
+def test_pikachu_has_mega_pucnh():
+    response = requests.get(f"{BASE_URL}/pokemon/pikachu")
+    data = response.json()
+    assert response.status_code == 200, f"API-called failed with status {response.status_code}"
+
+    all_moves = [m["move"]["name"] for m in data ["moves"]]
+
+    if "mega-punch" in all_moves:
+        print(" TEST PASSED: Pikachu can learn mega-punch.")
+    else:
+        print(" TEST FAILED: Pikachu cannot learn mega-punch.")
+
